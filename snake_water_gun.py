@@ -1,4 +1,26 @@
 import random 
+
+def highscore():
+    try :
+        with open("highscore.txt",) as f :    
+            current_highscore=f.read().strip()
+    except FileNotFoundError:
+        current_highscore = ""
+
+    if current_highscore in (" ","","0") :
+        new_highscore=0 
+
+    else :
+        new_highscore=int(current_highscore)       
+    return new_highscore
+
+def save_highscore(score) :
+    with open("highscore.txt","w") as f:
+            f.write(str(score))
+    
+
+#start of the game
+current_record = highscore()
 choices={"snake":1,"water":-1,"gun" :0}
 rev_choices={1:"snake",-1:"water",0:"gun"}
 
@@ -20,6 +42,9 @@ if user_input in choices :
     (user_value==-1 and com==0 ) :
     print("you won")
     
+    if current_record < 1:
+            save_highscore(1)
+
    else:
     print("you lose")  
        
